@@ -1,151 +1,130 @@
-container = document.getElementById("container");
-addUserStory = document.getElementById("addUserStory");
-saveButton = document.getElementById("save");
-class UserStory {
+class UserStory extends HTMLElement {
+    userStory; // Conteneur de la User Story (div)
+    id; // Champ ID (input)
+    titre; // Champ Titre (input)
+    classification; // Conteneur de la classification (div)
+    priorite; // Champ Priorité (input)
+    charge; // Champ Charge (input)
+    description; // Champ Description (textarea)
+    test; // Champ Test (textarea)
+    button; // Bouton Retourner (button)
+    suppButton; // Bouton Supprimer (button)
+
     constructor(id="", titre="", priorite="", charge="", description="", test="") {
-        this.id = id;
-        this.titre = titre;
-        this.priorite = priorite;
-        this.charge = charge;
-        this.description = description;
-        this.test = test;
-        this.htmlElement = this.show();
-    }
+        super();
+        // Construction de la structure HTML
+        this.userStory = document.createElement("div");
+        this.id = document.createElement("input");
+        this.titre = document.createElement("input");
+        this.classification = document.createElement("div");
+        this.priorite = document.createElement("input");
+        this.charge = document.createElement("input");
+        this.description = document.createElement("textarea");
+        this.test = document.createElement("textarea");
+        this.button = document.createElement("button");
+        this.suppButton = document.createElement("button");
 
-    show() {
-        let pack = document.createElement("div");
-        let userStory = document.createElement("div");
-        let id = document.createElement("input");
-        let titre = document.createElement("input");
-        let classification = document.createElement("div");
-        let priorite = document.createElement("input");
-        let charge = document.createElement("input");
-        let description = document.createElement("textarea");
-        let test = document.createElement("textarea");
-        let button = document.createElement("button");
-        let suppButton = document.createElement("button");
-        pack.classList.add("pack");
-        userStory.classList.add("userStory");
-        id.classList.add("id");
-        id.value = this.id;
-        id.placeholder = "ID";
-        titre.classList.add("titre");
-        titre.value = this.titre;
-        titre.placeholder = "Titre";
-        classification.classList.add("classification");
-        priorite.classList.add("priorite");
-        priorite.value = this.priorite;
-        priorite.placeholder = "Priorité";
-        charge.classList.add("charge");
-        charge.value = this.charge;
-        charge.placeholder = "Charge";
-        description.classList.add("description");
-        description.value = this.description;
-        description.placeholder = "Description";
-        test.classList.add("test");
-        test.style.display = "none";
-        test.value = this.test;
-        test.placeholder = "Test";
-        button.innerHTML = "Retourner"
-        suppButton.innerHTML = "Supprimer"
-        suppButton.addEventListener("click", () => {
-            pack.remove();
-            userStories.splice(userStories.indexOf(this), 1);
-        });
-        pack.appendChild(userStory);
-        userStory.appendChild(id);
-        userStory.appendChild(titre);
-        userStory.appendChild(classification);
-        classification.appendChild(priorite);
-        classification.appendChild(charge);
-        userStory.appendChild(description);
-        pack.appendChild(test);
-        pack.appendChild(button);
-        pack.appendChild(suppButton);
-        container.insertBefore(pack, addUserStory);
+        // Attribution des classes CSS
+        this.classList.add("pack");
+        this.userStory.classList.add("userStory");
+        this.id.classList.add("id");
+        this.titre.classList.add("titre");
+        this.classification.classList.add("classification");
+        this.priorite.classList.add("priorite");
+        this.charge.classList.add("charge");
+        this.description.classList.add("description");
+        this.test.classList.add("test");
 
-        /* Events */
-        button.addEventListener("click", () => {
+        // Attribution des valeurs
+        this.id.value = id;
+        this.id.placeholder = "ID";
+        this.titre.value = titre;
+        this.titre.placeholder = "Titre";
+        this.priorite.value = priorite;
+        this.priorite.placeholder = "Priorité";
+        this.charge.value = charge;
+        this.charge.placeholder = "Charge";
+        this.description.value = description;
+        this.description.placeholder = "Description";
+        this.test.value = test;
+        this.test.placeholder = "Test";
+        this.test.style.display = "none";
+        this.button.innerHTML = "Retourner"
+        this.suppButton.innerHTML = "Supprimer"
+
+        // Ajout des éléments dans le DOM
+        this.appendChild(this.userStory);
+        this.userStory.appendChild(this.id);
+        this.userStory.appendChild(this.titre);
+        this.userStory.appendChild(this.classification);
+        this.classification.appendChild(this.priorite);
+        this.classification.appendChild(this.charge);
+        this.userStory.appendChild(this.description);
+        this.appendChild(this.test);
+        this.appendChild(this.button);
+        this.appendChild(this.suppButton);
+        
+        // Gestion des événements
+        this.button.addEventListener("click", () => {
             this.reverse();
         });
 
-        id.addEventListener("input", () => {
-            this.id = id.value;
+        this.suppButton.addEventListener("click", () => {
+            this.remove();
+            delete this;
         });
-
-        titre.addEventListener("input", () => {
-            this.titre = titre.value;
-        });
-
-        priorite.addEventListener("input", () => {
-            this.priorite = priorite.value;
-        });
-
-        charge.addEventListener("input", () => {
-            this.charge = charge.value;
-        });
-
-        description.addEventListener("input", () => {
-            this.description = description.value;
-        });
-
-        test.addEventListener("input", () => {
-            this.test = test.value;
-        });
-        return test;
     }
 
     reverse() {
-        if (this.htmlElement.style.display == "none") {
-            this.htmlElement.style.display = "block";
+        if (this.test.style.display == "none") {
+            this.test.style.display = "block";
         } else {
-            this.htmlElement.style.display = "none";
+            this.test.style.display = "none";
         }
     }
-}
 
-let userStories = [];
+    toJson() {
+        return {
+            'id':this.id.value,
+            'titre':this.titre.value,
+            'priorite':this.priorite.value,
+            'charge':this.charge.value,
+            'description':this.description.value,
+            'test':this.test.value
+        }
+    }
+} window.customElements.define("user-story", UserStory);
+
+let container = document.getElementById("container");
+let addUserStory = document.getElementById("addUserStory");
+let saveButton = document.getElementById("save");
+let fileInput = document.getElementById('fileInput');
 
 addUserStory.addEventListener("click", () => {
-    let userStory = new UserStory();
-    userStories.push(userStory);
+    container.insertBefore(new UserStory(), addUserStory);
 });
-
-
 
 document.addEventListener("keydown", (e) => {
-    if (e.key == "+") {
-        let userStory = new UserStory();
-        userStories.push(userStory);
-    }
-    if (e.ctrlKey && e.key == "s") {
-        e.preventDefault();
-        var jsonString = JSON.stringify(userStories, null, 2);
-        var blob = new Blob([jsonString], { type: "application/json" });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = 'UserStories.json';
-        document.body.appendChild(a);  // This line is needed for Firefox
-        a.click();
-        document.body.removeChild(a);  // This line is needed for Firefox
-    }
-
-    if (e.ctrlKey && e.key == "l") {
-        e.preventDefault();
-        if (fileInput.style.display == "block") {
-            fileInput.style.display = "none";
-        } else {
-            fileInput.style.display = "block";
-        }
+    if (e.key == "s" && e.ctrlKey) {
+        save();
+    } else if (e.key == "+" && e.ctrlKey) {
+        container.appendChild(new UserStory());
     }
 });
 
-let fileInput = document.getElementById('fileInput');
-fileInput.addEventListener('change', handleFileSelect, false);
 saveButton.addEventListener("click", () => {
-    var jsonString = JSON.stringify(userStories, null, 2);
-    var blob = new Blob([jsonString], { type: "application/json" });
+    save();
+});
+
+fileInput.addEventListener('change', handleFileSelect, false);
+
+function save() {
+    let userStoriesToSave = [];
+    for (userStory of document.getElementsByTagName("user-story")) {
+        userStoriesToSave.push(userStory.toJson());
+    }
+    let data = JSON.stringify(userStoriesToSave);
+    var blob = new Blob([data], { type: "application/json" });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
@@ -153,8 +132,7 @@ saveButton.addEventListener("click", () => {
     document.body.appendChild(a);  // This line is needed for Firefox
     a.click();
     document.body.removeChild(a);  // This line is needed for Firefox
-});
-
+}
 
 function handleFileSelect(event) {
     var file = event.target.files[0];
@@ -170,7 +148,7 @@ function handleFileSelect(event) {
             var parsedData = JSON.parse(fileContent);
             var userStoriesToLoad = parsedData.map(item => new UserStory(item.id, item.titre, item.priorite, item.charge, item.description, item.test));
             console.log(userStoriesToLoad);  // Output the array of UserStory instances to the console
-            userStoriesToLoad.forEach(userStory => userStories.push(userStory));
+            userStoriesToLoad.forEach(userStory => container.insertBefore(userStory, addUserStory));
         } catch (e) {
             console.error('Invalid JSON format:', e);
         }
