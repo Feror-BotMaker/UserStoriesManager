@@ -1,0 +1,200 @@
+body {
+    background-color: #272635;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#saveNload {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 60vw;
+    height: 20vw;
+    place-items: center;
+}
+
+#save {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    font-size: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.custom-file-upload {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    font-size: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#fileInput {
+    display: none;
+}
+
+.container {
+    margin: 0;
+    margin-top: 5vh;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    row-gap: 20vh;
+    width: 100vw;
+    height: fit-content;
+}
+
+.pack {
+    width: 30vw;
+    height: 20vw;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    place-items: center;
+    font-size: 1vw;
+}
+
+.pack > button {
+    width: 70%;
+    height: 4vw;
+    background-color: rgba(255, 0, 0, 0.326);
+    font-size: 3vw;
+    color: white;
+}
+
+.pack > button:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.userStory {
+    border: 1px solid black;
+    width: 30vw;
+    height: 20vw;
+    display: grid;
+    grid-template-columns: 1fr 5fr 2fr;
+    grid-template-rows: 1fr 5fr;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.userStory > input {
+    border: 1px solid black;
+    background-color: white;
+    resize: none;
+    overflow: hidden;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.userStory > textarea {
+    border: 1px solid black;
+    background-color: white;
+    resize: none;
+    overflow: scroll;
+    scrollbar-width: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1.5vw;
+}
+
+.userStory > .classification {
+    width: 100%;
+}
+
+.userStory > .classification > input {
+    border: 1px solid black;
+    background-color: white;
+    resize: none;
+    overflow: scroll;
+    outline: none;
+    width: 100%;
+    height: 50%;
+    text-align: right;
+}
+
+.userStory > .description {
+    grid-column: 1 / 4;
+}
+
+.test {
+    grid-row: 1;
+    grid-column: 1;
+    border: 1px solid black;
+    background-color: white;
+    resize: none;
+    overflow: scroll;
+    scrollbar-width: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#addUserStory {
+    width: 10vw;
+    height: 10vw;
+    border: 1px solid black;
+    background-color: white;
+    resize: none;
+    border-radius: 20%;
+    font-size: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* For mobile */
+
+@media (orientation: portrait) {
+    .container {
+        grid-template-columns: 1fr;
+        row-gap: 20vw;
+    }
+
+    .pack {
+        width: 90vw;
+        height: 70vw;
+        font-size: 3vw;
+    }
+
+    .pack > button {
+        height: 8vw;
+        font-size: 3vw;
+    }
+
+    .userStory {
+        width: 90vw;
+        height: 70vw;
+        grid-template-rows: 11vw 59vw;
+        font-size: 3vw;
+    }
+    
+    .userStory > textarea {
+        font-size: 4vw;
+    }
+
+    .userStory > input {
+        font-size: 4vw;
+    }
+
+    .userStory > .classification > input {
+        font-size: 4vw;
+        height: 5.5vw;
+    }
+
+    .test {
+        font-size: 4vw;
+    }
+}
